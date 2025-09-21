@@ -56,9 +56,13 @@ const App = () => {
     setMessage("Task Deleted Successfully");
   }
   const resetBtn = () => {
-  setArray([])
-   localStorage.setItem("Task", JSON.stringify([]))
+    setArray([])
+    localStorage.setItem("Task", JSON.stringify([]))
   }
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("Task")) || [];
+    setArray(storedData);
+  }, [])
   return (
     <div>
       <input
@@ -75,12 +79,12 @@ const App = () => {
 
       {array.map((item, index) => (
         <div key={index}>
-           <div className='BTN'>
-          {item}
-         
+          <div className='BTN'>
+            {item}
 
-          <button onClick={() => editBtn(index)}>Edit</button>
-          <button onClick={() => deleteBtn(index)}>Delete</button>
+
+            <button onClick={() => editBtn(index)}>Edit</button>
+            <button onClick={() => deleteBtn(index)}>Delete</button>
           </div>
         </div>
       ))}
